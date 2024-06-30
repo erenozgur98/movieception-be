@@ -1,0 +1,39 @@
+[
+    {
+        "username": "doritos1234",
+        "movieFavorites": [
+            {
+                "id": "453395",
+                "poster_path": "9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",
+                "title": "Doctor Strange in the Multiverse of Madness"
+            },
+            {
+                "id": "634649",
+                "poster_path": "1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+                "title": "Spider-Man: No Way Home"
+            },
+            {
+                "id": "448387",
+                "poster_path": "hdtlZ8ScjcEiYiIb5OqTnrz7CG8.jpg",
+                "title": "Doctor Strange: The Fabric of Reality"
+            }
+        ],
+        "showFavorites": [
+            {
+                "id": "92782",
+                "poster_path": "cdkyMYdu8ao26XOBvilNzLneUg1.jpg",
+                "title": "Ms. Marvel"
+            },
+            {
+                "id": "194766",
+                "poster_path": "a8x9tynN9kcwhSHLMbuj1nl2mM7.jpg",
+                "title": "The Summer I Turned 18"
+            },
+            {
+                "id": "66732",
+                "poster_path": "49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+                "title": "Stranger Things"
+            }
+        ]
+    }
+]

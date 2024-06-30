@@ -1,0 +1,29 @@
+[
+    {
+        "username": "doritos1234",
+        "movieHistory": [
+            {
+                "id": "194766",
+                "poster_path": "a8x9tynN9kcwhSHLMbuj1nl2mM7.jpg",
+                "title": "The Summer I Turned Pretty"
+            },
+            {
+                "id": "66732",
+                "poster_path": "49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+                "title": "Stranger Things"
+            }
+        ],
+        "showHistory": [
+            {
+                "id": "453395",
+                "poster_path": "9Gtg2DzBhmYamXBS1hKAhiwbBKS.jpg",
+                "title": "Doctor Strange in the Multiverse of Madness"
+            },
+            {
+                "id": "283995",
+                "poster_path": "y4MBh0EjBlMuOzv9axM4qJlmhzz.jpg",
+                "title": "Guardians of the Galaxy Vol. 2"
+            }
+        ]
+    }
+]
