@@ -8,7 +8,6 @@
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "npm run start",
     "seed": "node seeds/seed.js",
-    "install": "npm install",
     "annen": "nodemon server.js"
   },
   "repository": {
