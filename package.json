@@ -7,8 +7,7 @@
     "start": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
     "client": "npm run start",
-    "seed": "node seeds/seed.js",
-    "annen": "nodemon server.js"
+    "seed": "node seeds/seed.js"
   },
   "repository": {
     "type": "git",
