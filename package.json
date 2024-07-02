@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
-    "client": "cd client && npm run start",
+    "client": "npm run start",
     "seed": "node seeds/seed.js",
-    "install": "cd client && npm install",
+    "install": "npm install",
     "annen": "nodemon server.js"
   },
   "repository": {
