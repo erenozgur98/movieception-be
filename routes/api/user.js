@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const { User, Favorites, History, WatchList, WatchedEpisodes } = require('../../models')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 router.get('/', async (req, res) => {
   try {
