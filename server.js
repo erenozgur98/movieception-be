@@ -17,8 +17,12 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 
 const sess = {
-    secret: 'Super secret secret',
-    cookie: { secure: true },
+    secret: process.env.SEQUELIZE_SESSION_SECRET,
+    cookie: {
+        secure: true,
+        maxAge: 24 * 3600 * 1000
+        // maxAge: 7 * 24 * 3600 * 1000 - a week
+    },
     resave: false,
     saveUninitialized: true,
     store: new SequelizeStore({
