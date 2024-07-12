@@ -7,7 +7,7 @@ const { validateAccessToken } = require('../middleware/auth0.middleware')
 router.use('/api/v1.0', movieceptionRoutes)
 
 // API Routes
-router.use('/api', validateAccessToken, apiRoutes)
+router.use('/api', apiRoutes)
 
 
 module.exports = router
