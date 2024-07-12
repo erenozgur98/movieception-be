@@ -75,7 +75,7 @@ module.exports = {
             }
 
         } catch (err) {
-            console.log(`sflhsafljsafljsafhaslsahsaljfasd ${err}`)
+            console.dir(err, { depth: null, colors: true })
             res.status(500).json(err)
         }
     },
