@@ -7,30 +7,13 @@ const nocache = require("nocache");
 dotenv.config();
 
 const sequelize = require('./config/connection');
-// const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const MySQLStore = require('express-mysql-session')(session);
 const routes = require('./routes');
 
 const { errorHandler } = require('./middleware/error.middleware')
 
-const CLIENT_ORIGIN_URL = process.env.CLIENT_ORIGIN_URL;
 const PORT = process.env.PORT || 3001;
 const app = express();
-
-// const sess = {
-//     secret: process.env.SEQUELIZE_SESSION_SECRET,
-//     cookie: {
-//         secure: true,
-//         maxAge: 7 * 24 * 3600 * 1000,
-//         expires: 7 * 24 * 3600 * 1000
-//         // maxAge: 7 * 24 * 3600 * 1000 - a week
-//     },
-//     resave: false,
-//     saveUninitialized: true,
-//     store: new SequelizeStore({
-//         db: sequelize
-//     })
-// };
 
 const options = {
     host: process.env.DB_HOST,
@@ -72,17 +55,7 @@ app.use((req, res, next) => {
 });
 app.use(nocache());
 
-app.use(
-    cors({
-        origin: CLIENT_ORIGIN_URL,
-        methods: ["GET"],
-        allowedHeaders: ["Authorization", "Content-Type"],
-        maxAge: 86400,
-    })
-);
-
 app.use(cors());
-// app.use(session(sess));
 app.use(session({
     key: 'session_cookie_name',
     secret: process.env.SEQUELIZE_SESSION_SECRET,

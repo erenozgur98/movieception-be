@@ -4,7 +4,7 @@ module.exports = {
     findAllWatchList: (req, res) => {
         WatchList.findOne({
             where: {
-                username: req.session.username
+                username: req.body.username
             }
         })
             .then(favorites => {
@@ -17,7 +17,7 @@ module.exports = {
 
     addMovieToWatchList: async (req, res) => {
         try {
-            const watchListArray = await WatchList.findOne({ where: { username: req.session.username } });
+            const watchListArray = await WatchList.findOne({ where: { username: req.body.username } });
 
             if (watchListArray?.dataValues.showWatchList !== null && watchListArray?.dataValues.movieWatchList === null) {
                 const newMovieWatchList = await WatchList.update(
@@ -32,12 +32,12 @@ module.exports = {
                             }
                         ]
                     },
-                    { where: { username: req.session.username } }
+                    { where: { username: req.body.username } }
                 );
                 return res.json(newMovieWatchList)
             } else if (watchListArray === null || watchListArray?.dataValues?.movieWatchList === null) {
                 const newMovieWatchList = await WatchList.create({
-                    username: req.session.username,
+                    username: req.body.username,
                     movieWatchList: [
                         {
                             id: req.body.MovieId,
@@ -66,7 +66,7 @@ module.exports = {
 
                     WatchList.update(
                         { movieWatchList: movieArray },
-                        { where: { username: req.session.username } }
+                        { where: { username: req.body.username } }
                     )
 
                     res.json(movieArray)
@@ -82,7 +82,7 @@ module.exports = {
 
     addShowToWatchList: async (req, res) => {
         try {
-            const watchListArray = await WatchList.findOne({ where: { username: req.session.username } });
+            const watchListArray = await WatchList.findOne({ where: { username: req.body.username } });
 
             if (watchListArray?.dataValues.movieWatchList !== null && watchListArray?.dataValues.showWatchList === null) {
                 const newShowFavorite = await WatchList.update(
@@ -97,12 +97,12 @@ module.exports = {
                             }
                         ]
                     },
-                    { where: { username: req.session.username } }
+                    { where: { username: req.body.username } }
                 );
                 return res.json(newShowFavorite)
             } else if (watchListArray === null || watchListArray?.dataValues?.showWatchList === null) {
                 const newShowFavorite = await WatchList.create({
-                    username: req.session.username,
+                    username: req.body.username,
                     showWatchList: [
                         {
                             id: req.body.ShowId,
@@ -131,7 +131,7 @@ module.exports = {
 
                     WatchList.update(
                         { showWatchList: showArray },
-                        { where: { username: req.session.username } }
+                        { where: { username: req.body.username } }
                     )
 
                     res.json(showArray)
@@ -147,7 +147,7 @@ module.exports = {
 
     deleteMovieFromWatchList: async (req, res) => {
         try {
-            const watchListArray = await WatchList.findOne({ where: { username: req.session.username } });
+            const watchListArray = await WatchList.findOne({ where: { username: req.params.username } });
 
             const movieArray = watchListArray?.dataValues.movieWatchList;
             const index = movieArray.findIndex(x => +x.id === +req.params.MovieId);
@@ -156,7 +156,7 @@ module.exports = {
 
             WatchList.update(
                 { movieWatchList: movieArray },
-                { where: { username: req.session.username } }
+                { where: { username: req.params.username } }
             );
 
             res.json(watchListArray);
@@ -168,7 +168,7 @@ module.exports = {
 
     deleteShowFromWatchList: async (req, res) => {
         try {
-            const watchListArray = await WatchList.findOne({ where: { username: req.session.username } });
+            const watchListArray = await WatchList.findOne({ where: { username: req.params.username } });
 
             const showArray = watchListArray?.dataValues.showWatchList;
             const index = showArray.findIndex(x => +x.id === +req.params.ShowId);
@@ -177,7 +177,7 @@ module.exports = {
 
             WatchList.update(
                 { showWatchList: showArray },
-                { where: { username: req.session.username } }
+                { where: { username: req.params.username } }
             );
 
             res.json(watchListArray);
@@ -189,7 +189,7 @@ module.exports = {
 
     updateMovieFromWatchList: async (req, res) => {
         try {
-            const watchListArray = await WatchList.findOne({ where: { username: req.session.username } });
+            const watchListArray = await WatchList.findOne({ where: { username: req.body.username } });
             const movieArray = watchListArray?.dataValues?.movieWatchList
 
             if (!watchListArray) return res.status(401)
@@ -202,7 +202,7 @@ module.exports = {
 
             WatchList.update(
                 { movieWatchList: movieArray },
-                { where: { username: req.session.username } }
+                { where: { username: req.body.username } }
             )
 
             return res.json(movieArray)

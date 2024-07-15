@@ -4,7 +4,7 @@ module.exports = {
     findAllHistory: (req, res) => {
         History.findOne({
             where: {
-                username: req.session.username
+                username: req.body.username
             }
         })
             .then(favorites => {
@@ -17,7 +17,7 @@ module.exports = {
 
     addMovieToHistory: async (req, res) => {
         try {
-            const historyArray = await History.findOne({ where: { username: req.session.username } });
+            const historyArray = await History.findOne({ where: { username: req.body.username } });
 
             if (historyArray?.dataValues.showHistory !== null && historyArray?.dataValues.movieHistory === null) {
                 const newMovieHistory = await History.update(
@@ -32,12 +32,12 @@ module.exports = {
                             }
                         ]
                     },
-                    { where: { username: req.session.username } }
+                    { where: { username: req.body.username } }
                 );
                 return res.json(newMovieHistory)
             } else if (historyArray === null || historyArray?.dataValues?.movieHistory === null) {
                 const newMovieHistory = await History.create({
-                    username: req.session.username,
+                    username: req.body.username,
                     movieHistory: [
                         {
                             id: req.body.MovieId,
@@ -66,7 +66,7 @@ module.exports = {
 
                     History.update(
                         { movieHistory: movieArray },
-                        { where: { username: req.session.username } }
+                        { where: { username: req.body.username } }
                     )
 
                     res.json(movieArray)
@@ -83,7 +83,7 @@ module.exports = {
 
     addShowToHistory: async (req, res) => {
         try {
-            const historyArray = await History.findOne({ where: { username: req.session.username } });
+            const historyArray = await History.findOne({ where: { username: req.body.username } });
 
             if (historyArray?.dataValues.movieHistory !== null && historyArray?.dataValues.showHistory === null) {
                 const newShowFavorite = await History.update(
@@ -100,12 +100,12 @@ module.exports = {
                             }
                         ]
                     },
-                    { where: { username: req.session.username } }
+                    { where: { username: req.body.username } }
                 );
                 return res.json(newShowFavorite)
             } else if (historyArray === null || historyArray?.dataValues?.showHistory === null) {
                 const newShowFavorite = await History.create({
-                    username: req.session.username,
+                    username: req.body.username,
                     showHistory: [
                         {
                             id: req.body.ShowId,
@@ -138,7 +138,7 @@ module.exports = {
 
                     History.update(
                         { showHistory: showArray },
-                        { where: { username: req.session.username } }
+                        { where: { username: req.body.username } }
                     )
 
                     res.json(showArray)
@@ -154,7 +154,7 @@ module.exports = {
 
     deleteMovieFromHistory: async (req, res) => {
         try {
-            const historyArray = await History.findOne({ where: { username: req.session.username } });
+            const historyArray = await History.findOne({ where: { username: req.params.username } });
 
             const movieArray = historyArray?.dataValues.movieHistory;
             const index = movieArray.findIndex(x => +x.id === +req.params.MovieId);
@@ -163,7 +163,7 @@ module.exports = {
 
             History.update(
                 { movieHistory: movieArray },
-                { where: { username: req.session.username } }
+                { where: { username: req.params.username } }
             );
 
             res.json(historyArray);
@@ -175,7 +175,7 @@ module.exports = {
 
     deleteShowFromHistory: async (req, res) => {
         try {
-            const historyArray = await History.findOne({ where: { username: req.session.username } });
+            const historyArray = await History.findOne({ where: { username: req.params.username } });
             console.dir(req.params, { depth: null, colors: true })
 
             const showArray = historyArray?.dataValues.showHistory;
@@ -185,7 +185,7 @@ module.exports = {
 
             History.update(
                 { showHistory: showArray },
-                { where: { username: req.session.username } }
+                { where: { username: req.params.username } }
             );
 
             res.json(historyArray);
@@ -197,7 +197,7 @@ module.exports = {
 
     updateShowFromHistory: async (req, res) => {
         try {
-            const historyArray = await History.findOne({ where: { username: req.session.username } });
+            const historyArray = await History.findOne({ where: { username: req.body.username } });
             const showArray = historyArray?.dataValues?.showHistory
 
             if (!showArray) return res.status(404)
@@ -211,7 +211,7 @@ module.exports = {
 
             History.update(
                 { showHistory: showArray },
-                { where: { username: req.session.username } }
+                { where: { username: req.body.username } }
             )
 
             return res.json(showArray)

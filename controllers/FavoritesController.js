@@ -4,7 +4,7 @@ module.exports = {
     findAllFavorites: (req, res) => {
         Favorites.findOne({
             where: {
-                username: req.session.username
+                username: req.body.username
             }
         })
             .then(favorites => {
@@ -17,7 +17,7 @@ module.exports = {
 
     addMovieToFavorite: async (req, res) => {
         try {
-            const favoritesArray = await Favorites.findOne({ where: { username: req.session.username } });
+            const favoritesArray = await Favorites.findOne({ where: { username: req.body.username } });
 
             if (favoritesArray?.dataValues.showFavorites !== null && favoritesArray?.dataValues.movieFavorites === null) {
                 const newMovieFavorite = await Favorites.update(
@@ -32,12 +32,12 @@ module.exports = {
                             }
                         ]
                     },
-                    { where: { username: req.session.username } }
+                    { where: { username: req.body.username } }
                 );
                 return res.json(newMovieFavorite)
             } else if (favoritesArray === null || favoritesArray?.dataValues?.movieFavorites === null) {
                 const newMovieFavorite = await Favorites.create({
-                    username: req.session.username,
+                    username: req.body.username,
                     movieFavorites: [
                         {
                             id: req.body.MovieId,
@@ -66,7 +66,7 @@ module.exports = {
 
                     Favorites.update(
                         { movieFavorites: movieArray },
-                        { where: { username: req.session.username } }
+                        { where: { username: req.body.username } }
                     )
 
                     res.json(movieArray)
@@ -82,7 +82,7 @@ module.exports = {
 
     addShowToFavorite: async (req, res) => {
         try {
-            const favoritesArray = await Favorites.findOne({ where: { username: req.session.username } });
+            const favoritesArray = await Favorites.findOne({ where: { username: req.body.username } });
 
             if (favoritesArray?.dataValues.movieFavorites !== null && favoritesArray?.dataValues.showFavorites === null) {
                 const newShowFavorite = await Favorites.update(
@@ -97,12 +97,12 @@ module.exports = {
                             }
                         ]
                     },
-                    { where: { username: req.session.username } }
+                    { where: { username: req.body.username } }
                 );
                 return res.json(newShowFavorite)
             } else if (favoritesArray === null || favoritesArray?.dataValues?.showFavorites === null) {
                 const newShowFavorite = await Favorites.create({
-                    username: req.session.username,
+                    username: req.body.username,
                     showFavorites: [
                         {
                             id: req.body.ShowId,
@@ -131,7 +131,7 @@ module.exports = {
 
                     Favorites.update(
                         { showFavorites: showArray },
-                        { where: { username: req.session.username } }
+                        { where: { username: req.body.username } }
                     )
 
                     res.status(200).json({ message: `Successfully deleted ${req.body.title} from your favorites.` })
@@ -147,7 +147,7 @@ module.exports = {
 
     deleteMovieFromFavorites: async (req, res) => {
         try {
-            const favoritesArray = await Favorites.findOne({ where: { username: req.session.username } });
+            const favoritesArray = await Favorites.findOne({ where: { username: req.params.username } });
 
             const movieArray = favoritesArray?.dataValues.movieFavorites;
             const index = movieArray.findIndex(x => +x.id === +req.params.MovieId);
@@ -156,7 +156,7 @@ module.exports = {
 
             Favorites.update(
                 { movieFavorites: movieArray },
-                { where: { username: req.session.username } }
+                { where: { username: req.params.username } }
             );
 
             res.json(favoritesArray);
@@ -168,7 +168,7 @@ module.exports = {
 
     deleteShowFromFavorites: async (req, res) => {
         try {
-            const favoritesArray = await Favorites.findOne({ where: { username: req.session.username } });
+            const favoritesArray = await Favorites.findOne({ where: { username: req.params.username } });
 
             const showArray = favoritesArray?.dataValues.showFavorites;
             showArray.findIndex(x => console.log(`id of showArray = ${x.id}`));
@@ -178,7 +178,7 @@ module.exports = {
 
             Favorites.update(
                 { showFavorites: showArray },
-                { where: { username: req.session.username } }
+                { where: { username: req.params.username } }
             );
 
             res.json(favoritesArray);
