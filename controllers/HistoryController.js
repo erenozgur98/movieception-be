@@ -197,7 +197,7 @@ module.exports = {
 
     updateShowFromHistory: async (req, res) => {
         try {
-            const historyArray = await History.findOne({ where: { username: req.body.username } });
+            const historyArray = await History.findOne({ where: { username: req.body[0].username } });
             const showArray = historyArray?.dataValues?.showHistory
 
             if (!showArray) return res.status(404)
@@ -211,7 +211,7 @@ module.exports = {
 
             History.update(
                 { showHistory: showArray },
-                { where: { username: req.body.username } }
+                { where: { username: req.body[0].username } }
             )
 
             return res.json(showArray)
