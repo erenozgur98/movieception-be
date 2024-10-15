@@ -158,7 +158,14 @@ module.exports = {
                                             season_number: req.body.season_id
                                         }
                                     ],
-                                    created_at: new Date()
+                                    created_at: new Date(),
+                                    last_watched: [
+                                        {
+                                            episode_number: req.body.episode_number,
+                                            season_number: req.body.season_id,
+                                            date: new Date()
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -185,7 +192,14 @@ module.exports = {
                                     season_number: req.body.season_id
                                 }
                             ],
-                            created_at: new Date()
+                            created_at: new Date(),
+                            last_watched: [
+                                {
+                                    episode_number: req.body.episode_number,
+                                    season_number: req.body.season_id,
+                                    date: new Date()
+                                }
+                            ]
                         }
                     ]
                 }
@@ -215,10 +229,17 @@ module.exports = {
                                 episode_number: req.body.episode_number,
                                 name: req.body.name,
                                 runtime: req.body.runtime,
-                                season_number: req.body.season_id
+                                season_number: req.body.season_id,
                             }
                         ],
-                        created_at: new Date()
+                        created_at: new Date(),
+                        last_watched: [
+                            {
+                                episode_number: req.body.episode_number,
+                                season_number: req.body.season_id,
+                                date: new Date()
+                            }
+                        ]
                     }
 
                     seasons.push(newSeason)
@@ -232,6 +253,14 @@ module.exports = {
                         season_number: req.body.season_id
                     }
 
+                    currentSeason.updated_at = new Date()
+                    currentSeason.last_watched = [
+                        {
+                            episode_number: req.body.episode_number,
+                            season_number: req.body.season_id,
+                            date: new Date()
+                        }
+                    ]
                     currentSeason.episodes.push(newEpisode)
                 }
 
@@ -292,8 +321,10 @@ module.exports = {
             if (!newEpisodeArray[indexOfTheShow].rewatch_count) {
                 // setting this to 2 bcuz it'll start from 1 anyways
                 newEpisodeArray[indexOfTheShow].rewatch_count = 2
+                newEpisodeArray[indexOfTheShow].last_rewatched = new Date()
             } else {
                 newEpisodeArray[indexOfTheShow].rewatch_count = newEpisodeArray[indexOfTheShow].rewatch_count + 1
+                newEpisodeArray[indexOfTheShow].last_rewatched = new Date()
             }
 
             WatchedEpisodes.update(
